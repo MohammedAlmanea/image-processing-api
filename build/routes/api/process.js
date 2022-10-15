@@ -18,7 +18,9 @@ const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const process = express_1.default.Router();
 process.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    // Regular Expression used to check if width or height have any letter in them
     const reqExp = /[a-zA-Z]/g;
+    // Checks if height and width are positive numbers
     if (reqExp.test(req.query.width) ||
         reqExp.test(req.query.height) ||
         parseInt(req.query.width) < 0 ||
@@ -26,25 +28,33 @@ process.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(400);
         return res.send('Width and Height can only be positive numbers!');
     }
+    // Query return type is undefined
+    // Casting with (as string) so it can parseInt since sharp takes type number for height and width
     const width = parseInt(req.query.width);
     const height = parseInt(req.query.height);
     const imageName = req.query.imageName;
+    // Checks if the image entered exists
     if (!fs_1.default.existsSync(`./images/${imageName}.jpg`)) {
         res.status(404);
         return res.send('The images does not exist!');
     }
+    // Caching - if image with same width,height exist
     if (fs_1.default.existsSync(`./images/cache/${imageName}-${width}-${height}.png`)) {
         res.sendFile(`${path_1.default.resolve('./')}/images/cache/${imageName}-${width}-${height}.png`);
     }
     else {
+        //Else process new image with width,height entered
         const processImage = yield (0, sharp_1.default)(`./images/${imageName}.jpg`)
             .resize(width, height)
             .png()
             .toBuffer();
+        // Saving new image in cache
         fs_1.default.writeFile(`./images/cache/${imageName}-${width}-${height}.png`, processImage, (err) => {
             if (err) {
                 console.log(`saving file failed: ${err}`);
             }
+            // Since .sendFile only takes absolute path, used path resolve
+            // to get absolute path of root folder
             res.sendFile(`${path_1.default.resolve('./')}/images/cache/${imageName}-${width}-${height}.png`);
         });
     }
