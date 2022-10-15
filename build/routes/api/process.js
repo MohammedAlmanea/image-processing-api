@@ -30,7 +30,7 @@ process.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const height = parseInt(req.query.height);
     const imageName = req.query.imageName;
     if (!fs_1.default.existsSync(`./images/${imageName}.jpg`)) {
-        res.status(400);
+        res.status(404);
         return res.send('The images does not exist!');
     }
     if (fs_1.default.existsSync(`./images/cache/${imageName}-${width}-${height}.png`)) {

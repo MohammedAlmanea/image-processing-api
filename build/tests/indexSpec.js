@@ -40,4 +40,8 @@ describe('Height, Width, fileName  responses', () => {
         const response = yield request.get('/main/process?height=300&imageName=fjord');
         expect(response.status).not.toEqual(200);
     }));
+    it('gets error if imageName is not valid', () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield request.get('/main/process?height=300&width=300&imageName=helloWorld');
+        expect(response.status).toEqual(404);
+    }));
 });

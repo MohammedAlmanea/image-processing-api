@@ -29,4 +29,9 @@ describe('Height, Width, fileName  responses', () => {
     const response = await request.get('/main/process?height=300&imageName=fjord');
     expect(response.status).not.toEqual(200);
   });
+  it('gets error if imageName is not valid', async () =>{
+    const response = await request.get('/main/process?height=300&width=300&imageName=helloWorld');
+    expect(response.status).toEqual(404);
+  });
+  
 });
