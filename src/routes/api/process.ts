@@ -6,6 +6,11 @@ import path from 'path';
 const process = express.Router();
 
 process.get('/', async (req: express.Request, res: express.Response) => {
+ const reqExp = /[a-zA-Z]/g;
+ if(reqExp.test(req.query.width as string)||reqExp.test(req.query.height as string))
+ {
+  return res.send('Width and Height can only be numbers!');
+ }
   const width: number = parseInt(req.query.width as string);
   const height: number = parseInt(req.query.height as string);
   const imageName: string = req.query.imageName as string;
