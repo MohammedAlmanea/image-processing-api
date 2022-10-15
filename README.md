@@ -21,12 +21,11 @@ Simple api that resizes an image with customized height and width
    * height: positive number
    * width : positive number
    * imageName: Choose one out of available images:
-   
-                                             * encenadaport
-                                             * jford
-                                             * icelandwaterfall
-                                             * palmtunnel
-                                             * santamonica
+    * encenadaport
+    * jford
+    * icelandwaterfall
+    * palmtunnel
+    * santamonica
    
 ## Endpoint examples
 
