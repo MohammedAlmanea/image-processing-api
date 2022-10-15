@@ -20,7 +20,7 @@ process.get('/', async (req: express.Request, res: express.Response) => {
   const height: number = parseInt(req.query.height as string);
   const imageName: string = req.query.imageName as string;
   if (!fs.existsSync(`./images/${imageName}.jpg`)) {
-    res.status(400)
+    res.status(404)
     return res.send('The images does not exist!');
   }
   if (fs.existsSync(`./images/cache/${imageName}-${width}-${height}.png`)) {

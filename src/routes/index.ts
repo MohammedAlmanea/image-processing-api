@@ -1,4 +1,4 @@
-import express, { Router } from 'express';
+import express from 'express';
 import process from './api/process';
 
 const routes = express.Router();
