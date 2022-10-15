@@ -13,14 +13,14 @@ process.get('/', async (req: express.Request, res: express.Response) => {
     parseInt(req.query.width as string) < 0 ||
     parseInt(req.query.height as string) < 0
   ) {
-    res.status(400)
+    res.status(400);
     return res.send('Width and Height can only be positive numbers!');
   }
   const width: number = parseInt(req.query.width as string);
   const height: number = parseInt(req.query.height as string);
   const imageName: string = req.query.imageName as string;
   if (!fs.existsSync(`./images/${imageName}.jpg`)) {
-    res.status(404)
+    res.status(404);
     return res.send('The images does not exist!');
   }
   if (fs.existsSync(`./images/cache/${imageName}-${width}-${height}.png`)) {
