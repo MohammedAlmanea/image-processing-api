@@ -19,13 +19,18 @@ const path_1 = __importDefault(require("path"));
 const process = express_1.default.Router();
 process.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const reqExp = /[a-zA-Z]/g;
-    if (reqExp.test(req.query.width) || reqExp.test(req.query.height)) {
-        return res.send('Width and Height can only be numbers!');
+    if (reqExp.test(req.query.width) ||
+        reqExp.test(req.query.height) ||
+        parseInt(req.query.width) < 0 ||
+        parseInt(req.query.height) < 0) {
+        res.status(400);
+        return res.send('Width and Height can only be positive numbers!');
     }
     const width = parseInt(req.query.width);
     const height = parseInt(req.query.height);
     const imageName = req.query.imageName;
     if (!fs_1.default.existsSync(`./images/${imageName}.jpg`)) {
+        res.status(400);
         return res.send('The images does not exist!');
     }
     if (fs_1.default.existsSync(`./images/cache/${imageName}-${width}-${height}.png`)) {

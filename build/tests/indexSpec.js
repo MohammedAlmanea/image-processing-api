@@ -21,8 +21,23 @@ describe('Test endpoint responses', () => {
         // 200 is http code for OK
         expect(response.status).toEqual(200);
     }));
-    it('get process endpoint', () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield request.get('/main/process');
+    it('gets process endpoint', () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield request.get('/main/process?height=400&width=300&imageName=fjord');
         expect(response.status).toEqual(200);
+    }));
+});
+describe('Height, Width, fileName  responses', () => {
+    it('if height and width and imageName are valid', () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield request.get('/main/process?height=400&width=300&imageName=fjord');
+        // 200 is http code for OK
+        expect(response.status).toEqual(200);
+    }));
+    it('gets error if height is missing', () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield request.get('/main/process?width=300&imageName=fjord');
+        expect(response.status).not.toEqual(200);
+    }));
+    it('gets error if width is missing', () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield request.get('/main/process?height=300&imageName=fjord');
+        expect(response.status).not.toEqual(200);
     }));
 });
