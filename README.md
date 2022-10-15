@@ -17,14 +17,17 @@ Simple api that resizes an image with customized height and width
 * npm run build
 * node build/.
 * The server will listen to port 3000
-* Endpoint : http://localhost:3000/main/process?height=(Height here)&width=(Width here)&imageName=(image name here)
-* Available Images :
-    * encenadaport
-    * jford
-    * icelandwaterfall
-    * palmtunnel
-    * santamonica
-    
+* Expected query arguments are:
+   * height: positive number
+   * width : positive number
+   * imageName: Choose one out of available images:
+   
+                                             * encenadaport
+                                             * jford
+                                             * icelandwaterfall
+                                             * palmtunnel
+                                             * santamonica
+   
 ## Endpoint examples
 
 * http://localhost:3000/main/process?height=400&width=200&imageName=santamonica
