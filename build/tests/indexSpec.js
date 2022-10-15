@@ -16,9 +16,13 @@ const supertest_1 = __importDefault(require("supertest"));
 const index_1 = __importDefault(require("../index"));
 const request = (0, supertest_1.default)(index_1.default);
 describe('Test endpoint responses', () => {
-    it('gets the api endpoint', () => __awaiter(void 0, void 0, void 0, function* () {
+    it('gets main endpoint', () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield request.get('/main');
         // 200 is http code for OK
+        expect(response.status).toEqual(200);
+    }));
+    it('get process endpoint', () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield request.get('/main/process');
         expect(response.status).toEqual(200);
     }));
 });
