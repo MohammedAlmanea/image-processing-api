@@ -27,7 +27,7 @@ describe('Test endpoint responses', () => {
     }));
 });
 describe('Height, Width, fileName  responses', () => {
-    it('if height and width and imageName are valid', () => __awaiter(void 0, void 0, void 0, function* () {
+    it('gets success if height and width and imageName are valid', () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield request.get('/main/process?height=400&width=300&imageName=fjord');
         // 200 is http code for OK
         expect(response.status).toEqual(200);
@@ -43,5 +43,13 @@ describe('Height, Width, fileName  responses', () => {
     it('gets error if imageName is not valid', () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield request.get('/main/process?height=300&width=300&imageName=helloWorld');
         expect(response.status).toEqual(404);
+    }));
+    it('gets error if height is negative number', () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield request.get('/main/process?height=-200&width=300&imageName=helloWorld');
+        expect(response.status).toEqual(400);
+    }));
+    it('gets error if width is negative number', () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield request.get('/main/process?height=200&width=-300&imageName=helloWorld');
+        expect(response.status).toEqual(400);
     }));
 });
