@@ -34,11 +34,11 @@ describe('Height, Width, fileName  responses', () => {
     expect(response.status).toEqual(404);
   });
   it('gets error if height is negative number', async () =>{
-    const response = await request.get('/main/process?height=-200&width=300&imageName=helloWorld');
+    const response = await request.get('/main/process?height=-200&width=300&imageName=fjord');
     expect(response.status).toEqual(400);
   });
   it('gets error if width is negative number', async () =>{
-    const response = await request.get('/main/process?height=200&width=-300&imageName=helloWorld');
+    const response = await request.get('/main/process?height=200&width=-300&imageName=fjord');
     expect(response.status).toEqual(400);
   });
   
