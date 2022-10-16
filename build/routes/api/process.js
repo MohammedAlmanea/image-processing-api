@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const sharp_1 = __importDefault(require("sharp"));
+const utilities_1 = __importDefault(require("../../utilities"));
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const process = express_1.default.Router();
@@ -40,23 +40,14 @@ process.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     // Caching - if image with same width,height exist
     if (fs_1.default.existsSync(`./images/cache/${imageName}-${width}-${height}.png`)) {
-        res.sendFile(`${path_1.default.resolve('./')}/images/cache/${imageName}-${width}-${height}.png`);
+        return res.sendFile(`${path_1.default.resolve('./')}/images/cache/${imageName}-${width}-${height}.png`);
     }
     else {
-        //Else process new image with width,height entered
-        const processImage = yield (0, sharp_1.default)(`./images/${imageName}.jpg`)
-            .resize(width, height)
-            .png()
-            .toBuffer();
-        // Saving new image in cache
-        fs_1.default.writeFile(`./images/cache/${imageName}-${width}-${height}.png`, processImage, (err) => {
-            if (err) {
-                console.log(`saving file failed: ${err}`);
-            }
-            // Since .sendFile only takes absolute path, used path resolve
-            // to get absolute path of root folder
-            res.sendFile(`${path_1.default.resolve('./')}/images/cache/${imageName}-${width}-${height}.png`);
-        });
+        //Else call proccesImage() that processes new image with width,height entered
+        yield (0, utilities_1.default)(width, height, imageName);
+        // Since .sendFile only takes absolute path, used path resolve
+        // to get absolute path of root folder
+        res.sendFile(`${path_1.default.resolve('./')}/images/cache/${imageName}-${width}-${height}.png`);
     }
 }));
 exports.default = process;
