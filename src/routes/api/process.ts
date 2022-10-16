@@ -42,8 +42,7 @@ process.get('/', async (req: express.Request, res: express.Response) => {
     res.sendFile(
       `${path.resolve('./')}/images/cache/${imageName}-${width}-${height}.png`
     );
-    }
   }
-);
+});
 
 export default process;
