@@ -1,5 +1,5 @@
 import express from 'express';
-import sharp from 'sharp';
+import processImage from '../../utilities';
 import fs from 'fs';
 import path from 'path';
 
@@ -31,32 +31,17 @@ process.get('/', async (req: express.Request, res: express.Response) => {
   }
   // Caching - if image with same width,height exist
   if (fs.existsSync(`./images/cache/${imageName}-${width}-${height}.png`)) {
-    res.sendFile(
+    return res.sendFile(
       `${path.resolve('./')}/images/cache/${imageName}-${width}-${height}.png`
     );
   } else {
-    //Else process new image with width,height entered
-    const processImage = await sharp(`./images/${imageName}.jpg`)
-      .resize(width, height)
-      .png()
-      .toBuffer();
+    //Else call proccesImage() that processes new image with width,height entered
+    await processImage(width, height, imageName);
 
-    // Saving new image in cache
-    fs.writeFile(
-      `./images/cache/${imageName}-${width}-${height}.png`,
-      processImage,
-      (err) => {
-        if (err) {
-          console.log(`saving file failed: ${err}`);
-        }
-        // Since .sendFile only takes absolute path, used path resolve
-        // to get absolute path of root folder
-        res.sendFile(
-          `${path.resolve(
-            './'
-          )}/images/cache/${imageName}-${width}-${height}.png`
-        );
-      }
+    // Since .sendFile only takes absolute path, used path resolve
+    // to get absolute path of root folder
+    res.sendFile(
+      `${path.resolve('./')}/images/cache/${imageName}-${width}-${height}.png`
     );
   }
 });
