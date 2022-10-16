@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const utilities_1 = __importDefault(require("../utilities"));
-describe('procrssImage tests', () => {
+describe('processImage tests', () => {
     it('promise be resolved', () => __awaiter(void 0, void 0, void 0, function* () {
         expect(yield (0, utilities_1.default)(200, 400, 'fjord')).toBeResolved;
     }));
