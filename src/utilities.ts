@@ -1,5 +1,6 @@
 import sharp from 'sharp';
 import fs from 'fs';
+
 const processImage = async (width:number,height:number,imageName:string) =>{
 
 const img = await sharp(`./images/${imageName}.jpg`)

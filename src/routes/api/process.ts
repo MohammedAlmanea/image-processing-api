@@ -37,13 +37,13 @@ process.get('/', async (req: express.Request, res: express.Response) => {
   } else {
     //Else call proccesImage() that processes new image with width,height entered
     await processImage(width, height, imageName);
-
     // Since .sendFile only takes absolute path, used path resolve
     // to get absolute path of root folder
     res.sendFile(
       `${path.resolve('./')}/images/cache/${imageName}-${width}-${height}.png`
     );
+    }
   }
-});
+);
 
 export default process;
